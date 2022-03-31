@@ -8,11 +8,13 @@ function capitalize(name) {
 fetch(url).then(response => {
     return response.json()
 }).then(parsedReponse => {
-    console.log(parsedReponse)
     parsedReponse.results
         .map(pokemon => {
             const li = document.createElement("li");
+            const pokemonUrl = pokemon.url;
             li.textContent = capitalize(pokemon.name);
+            li.href = pokemonUrl
             pokemonList.append(li);
+            console.log(li)
         })
 })
