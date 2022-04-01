@@ -12,6 +12,7 @@ function createDiv(parsedObject) {
 
     const div = document.createElement("div")
     li.append(div)
+    div.classList.add("pokemon-listing")
 
     const figure = document.createElement("figure")
     div.append(figure)
@@ -27,7 +28,7 @@ function createDiv(parsedObject) {
     const a = document.createElement("a")
     figcaption.append(a)
     a.innerHTML = capitalize(parsedObject.name)
-    // a.href = "xxxxxx"
+    a.href = 'pokemon.html?pokemon=' + parsedObject.name
 }
 
 
@@ -45,3 +46,4 @@ fetch(url)
             console.log(parsedResponse)
         })
     })
+
