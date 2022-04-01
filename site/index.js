@@ -6,6 +6,31 @@ function capitalize(name) {
     return capitalizedName
 }
 
+function createDiv(parsedObject) {
+    const li = document.createElement("li")
+    pokemonList.append(li)
+
+    const div = document.createElement("div")
+    li.append(div)
+
+    const figure = document.createElement("figure")
+    div.append(figure)
+
+    const img = document.createElement("img")
+    img.src = parsedObject.sprites.front_default
+    figure.append(img)
+    img.alt = capitalize(parsedObject.name)
+
+    const figcaption = document.createElement("figcaption")
+    figure.append(figcaption)
+
+    const a = document.createElement("a")
+    figcaption.append(a)
+    a.innerHTML = capitalize(parsedObject.name)
+    // a.href = "xxxxxx"
+}
+
+
 fetch(url)
     .then(response => {
         return response.json()
@@ -16,9 +41,7 @@ fetch(url)
         return Promise.all(pokemonFetches)
     }).then(parsedResponses => {
         parsedResponses.forEach(parsedResponse => {
-            const li = document.createElement("li")
-            pokemonList.append(li)
-            li.innerHTML = '<div><figure><img/><figcaption><a></a></figcaption></figure></div > '
-            div.textContent = capitalize(parsedResponse.name)
+            createDiv(parsedResponse);
+            console.log(parsedResponse)
         })
     })
