@@ -8,6 +8,18 @@
 
 .pokemon img {
     width: 200px;
+    border: 6px solid white;
+    background-color: hsl(60, 100%, 80%);
+}
+
+.pokemon a {
+    background-color: hsl(60, 100%, 80%);
+    font-size: 24px;
+    padding: 10px;
+    margin: 10px;
+    border-left: 6px solid white;
+    border-right: 6px solid white;
+    border-bottom: 6px solid white;
 }
 
 h1 a:link {
@@ -38,4 +50,9 @@ h1 {
 
 body {
     background-color: hsl(0, 100%, 50%);
+}
+
+body h2 {
+    font-size: 36px;
+    text-align: center;
 }
