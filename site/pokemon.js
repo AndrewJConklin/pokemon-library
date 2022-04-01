@@ -14,7 +14,7 @@ function createContainer(parsedObject) {
     <h2>Abilities</h2>
     <ul class="abilities">
         <li>
-            <span class="ability-name">Ability's name goes here</span>
+            <span class="ability-name">${parsedObject.abilities[0].ability.name}</span>
             <span class="ability-short-description">Ability's short description goes here</span>
         </li>
         <li>
@@ -25,9 +25,7 @@ function createContainer(parsedObject) {
             <span class="ability-name">Ability's name goes here</span>
             <span class="ability-short-description">Ability's short description goes here</span>
         </li>
-  </ul>
-
-    `
+    </ul>`
 }
 
 const url = new URL(window.location)
@@ -37,6 +35,7 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
     .then(response => {
         return response.json()
     }).then(parsedResponse => {
+        console.log(parsedResponse)
         createContainer(parsedResponse)
     })
 
