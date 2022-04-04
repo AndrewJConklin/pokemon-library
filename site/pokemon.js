@@ -43,4 +43,7 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
     }).then(parsedResponse => {
         createContainer(parsedResponse)
         createUl(parsedResponse)
+        const spinner = document.querySelector(".spinner")
+        spinner.classList.add("hidden")
     })
+

@@ -42,7 +42,9 @@ fetch(url)
         return Promise.all(pokemonFetches)
     }).then(parsedResponses => {
         parsedResponses.forEach(parsedResponse => {
-            createDiv(parsedResponse);
+            createDiv(parsedResponse)
         })
+        const spinner = document.querySelector(".spinner")
+        spinner.classList.add("hidden")
     })
 
