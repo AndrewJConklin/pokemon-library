@@ -19,15 +19,16 @@ function createUl(parsedObject) {
     const div = document.querySelector(".pokemon-details")
     ul.classList.add("abilities")
     div.append(ul)
-
     parsedObject.abilities.forEach(element => {
         fetch(element.ability.url)
             .then(response => {
                 return response.json()
             }).then(parsedResponse => {
+                console.log(parsedResponse)
+                const englishDescription = parsedResponse.flavor_text_entries.find(ability => ability.language.name = "en")
                 const li = document.createElement("li")
                 li.innerHTML = `<span class="ability-name">${capitalize(parsedResponse.name)}</span>
-                <span class="ability-short-description">${parsedResponse.flavor_text_entries[0].flavor_text}</span > `
+                <span class="ability-short-description">${englishDescription.flavor_text}</span > `
                 ul.append(li)
             })
     })
