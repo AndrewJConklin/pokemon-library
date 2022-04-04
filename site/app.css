@@ -52,6 +52,7 @@ h1 {
     font-size: 48px;
     margin: 24px;
     text-align: center;
+    margin-bottom: 80px;
 }
 
 
@@ -64,4 +65,59 @@ body {
 body h2 {
     font-size: 36px;
     text-align: center;
+}
+
+.pokemon-details img {
+    display: block;
+    width: 200px;
+    border: 6px solid white;
+    background-color: hsl(60, 100%, 80%);
+    position: relative;
+}
+
+.pokemon-details figure {
+    display: flex;
+    justify-content: center;
+}
+
+.pokemon-details figcaption {
+    position: absolute;
+    top: 130px;
+    font-size: 24px;
+    font-weight: bolder;
+    border-left: 6px solid white;
+    border-right: 6px solid white;
+    border-top: 6px solid white;
+    background-color: hsl(60, 100%, 80%);
+}
+
+.pokemon-details {
+    display: block;
+    align-items: center;
+}
+
+.abilities {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    text-align: center;
+}
+
+.abilities li {
+    text-align: center;
+    border: 3px solid black;
+    background-color: hsl(0, 0%, 70%);
+}
+
+.ability-name {
+    font-size: 24px;
+    color: white;
+}
+
+.ability-short-description {
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    margin-bottom: 10px;
 }

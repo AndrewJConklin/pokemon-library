@@ -9,7 +9,8 @@ function createContainer(parsedObject) {
     const div = document.createElement("div")
     pokemon.append(div)
     div.classList.add("pokemon-details")
-    div.innerHTML = `<figure><img src=${parsedObject.sprites.front_default} alt=${capitalize(parsedObject.name)}></figure>
+    div.innerHTML = `<figure><img src=${parsedObject.sprites.front_default} alt=${capitalize(parsedObject.name)}>
+    <figcaption>${capitalize(parsedObject.name)}</figcaption></figure>
     <h2>Abilities</h2>`
 }
 
@@ -24,7 +25,6 @@ function createUl(parsedObject) {
             .then(response => {
                 return response.json()
             }).then(parsedResponse => {
-                console.log(parsedResponse)
                 const li = document.createElement("li")
                 li.innerHTML = `<span class="ability-name">${capitalize(parsedResponse.name)}</span>
                 <span class="ability-short-description">${parsedResponse.flavor_text_entries[0].flavor_text}</span > `
