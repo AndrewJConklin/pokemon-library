@@ -43,7 +43,6 @@ fetch(url)
     }).then(parsedResponses => {
         parsedResponses.forEach(parsedResponse => {
             createDiv(parsedResponse);
-            console.log(parsedResponse)
         })
     })
 
