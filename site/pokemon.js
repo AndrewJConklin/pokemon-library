@@ -16,23 +16,25 @@ function createDiv(pokemonInfo) {
 
 function createUl(pokemonInfo) {
     const ul = document.createElement("ul")
-    const div = document.querySelector(".pokemon-details")
     ul.classList.add("abilities")
-    div.append(ul)
-    pokemonInfo.abilities.forEach(element => {
-        fetch(element.ability.url)
-            .then(response => {
-                return response.json()
-            }).then(parsedResponse => {
-                const englishDescription = parsedResponse.flavor_text_entries.find(ability => ability.language.name = "en")
-                const li = document.createElement("li")
-                li.innerHTML = `<span class="ability-name">${capitalize(parsedResponse.name)}</span>
-                <span class="ability-short-description">${englishDescription.flavor_text}</span > `
-                ul.append(li)
+    pokemonInfo.abilities.forEach(abilitityObject => {
+        fetch(abilitityObject.ability.url)
+            .then(abilityUrl => {
+                return abilityUrl.json()
+            }).then(abilityInfo => {
+                ul.append(createAbilityLi(abilityInfo))
             })
     })
+    return ul
 }
 
+function createAbilityLi(abilityInfo) {
+    const englishDescription = abilityInfo.flavor_text_entries.find(ability => ability.language.name = "en")
+    const li = document.createElement("li")
+    li.innerHTML = `<span class="ability-name">${capitalize(abilityInfo.name)}</span>
+    <span class="ability-short-description">${englishDescription.flavor_text}</span > `
+    return li
+}
 
 const url = new URL(window.location)
 const queryString = new URLSearchParams(url.search)
@@ -42,7 +44,8 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
         return response.json()
     }).then(pokemonInfo => {
         pokemon.append(createDiv(pokemonInfo))
-        createUl(pokemonInfo)
+        const div = document.querySelector(".pokemon-details")
+        div.append(createUl(pokemonInfo))
         const spinner = document.querySelector(".spinner")
         spinner.classList.add("hidden")
     })
