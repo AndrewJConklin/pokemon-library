@@ -2,33 +2,20 @@ const url = "https://pokeapi.co/api/v2/pokemon?limit=50"
 const pokemonList = document.querySelector(".pokemon")
 
 function capitalize(name) {
-    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
-    return capitalizedName
+    return name.charAt(0).toUpperCase() + name.slice(1)
 }
 
-function createDiv(parsedObject) {
+function createLi(pokemon) {
     const li = document.createElement("li")
-    pokemonList.append(li)
-
-    const div = document.createElement("div")
-    li.append(div)
-    div.classList.add("pokemon-listing")
-
-    const figure = document.createElement("figure")
-    div.append(figure)
-
-    const img = document.createElement("img")
-    img.src = parsedObject.sprites.front_default
-    figure.append(img)
-    img.alt = capitalize(parsedObject.name)
-
-    const figcaption = document.createElement("figcaption")
-    figure.append(figcaption)
-
-    const a = document.createElement("a")
-    figcaption.append(a)
-    a.innerHTML = capitalize(parsedObject.name)
-    a.href = 'pokemon.html?pokemon=' + parsedObject.name
+    li.innerHTML = `<div class ="pokemon-listing">
+    <figure>
+    <img src="${pokemon.sprites.front_default}" alt="${capitalize(pokemon.name)}">
+    <figcaption>
+    <a href="pokemon.html?pokemon=${pokemon.name}">${capitalize(pokemon.name)}</a>
+    </figcaption>
+    </figure>
+    </div>`
+    return li
 }
 
 
@@ -40,9 +27,11 @@ fetch(url)
         const pokemonFetches = pokemonUrls.map(pokemonUrl => fetch(pokemonUrl)
             .then(response => response.json()))
         return Promise.all(pokemonFetches)
-    }).then(parsedResponses => {
-        parsedResponses.forEach(parsedResponse => {
-            createDiv(parsedResponse)
+    }).then(pokemonArray => {
+        pokemonArray.map(pokemon => {
+            return createLi(pokemon)
+        }).forEach(pokemonLi => {
+            pokemonList.append(pokemonLi)
         })
         const spinner = document.querySelector(".spinner")
         spinner.classList.add("hidden")
