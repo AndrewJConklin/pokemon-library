@@ -20,12 +20,13 @@ function createLi(pokemon) {
 
 
 fetch(url)
-    .then(response => {
-        return response.json()
-    }).then(parsedResponse => {
-        const pokemonUrls = parsedResponse.results.map(result => result.url)
-        const pokemonFetches = pokemonUrls.map(pokemonUrl => fetch(pokemonUrl)
-            .then(response => response.json()))
+    .then(response => response.json())
+    .then(parsedResponse => {
+        const pokemonUrls = parsedResponse.results
+            .map(result => result.url)
+        const pokemonFetches = pokemonUrls
+            .map(pokemonUrl => fetch(pokemonUrl)
+                .then(response => response.json()))
         return Promise.all(pokemonFetches)
     }).then(pokemonArray => {
         pokemonArray.map(pokemon => {

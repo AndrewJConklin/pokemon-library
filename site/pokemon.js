@@ -5,26 +5,25 @@ function capitalize(name) {
     return capitalizedName
 }
 
-function createContainer(parsedObject) {
+function createDiv(pokemonInfo) {
     const div = document.createElement("div")
-    pokemon.append(div)
     div.classList.add("pokemon-details")
-    div.innerHTML = `<figure><img src=${parsedObject.sprites.front_default} alt=${capitalize(parsedObject.name)}>
-    <figcaption>${capitalize(parsedObject.name)}</figcaption></figure>
+    div.innerHTML = `<figure><img src=${pokemonInfo.sprites.front_default} alt=${capitalize(pokemonInfo.name)}>
+    <figcaption>${capitalize(pokemonInfo.name)}</figcaption></figure>
     <h2>Abilities</h2>`
+    return div
 }
 
-function createUl(parsedObject) {
+function createUl(pokemonInfo) {
     const ul = document.createElement("ul")
     const div = document.querySelector(".pokemon-details")
     ul.classList.add("abilities")
     div.append(ul)
-    parsedObject.abilities.forEach(element => {
+    pokemonInfo.abilities.forEach(element => {
         fetch(element.ability.url)
             .then(response => {
                 return response.json()
             }).then(parsedResponse => {
-                console.log(parsedResponse)
                 const englishDescription = parsedResponse.flavor_text_entries.find(ability => ability.language.name = "en")
                 const li = document.createElement("li")
                 li.innerHTML = `<span class="ability-name">${capitalize(parsedResponse.name)}</span>
@@ -41,9 +40,9 @@ const queryString = new URLSearchParams(url.search)
 fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
     .then(response => {
         return response.json()
-    }).then(parsedResponse => {
-        createContainer(parsedResponse)
-        createUl(parsedResponse)
+    }).then(pokemonInfo => {
+        pokemon.append(createDiv(pokemonInfo))
+        createUl(pokemonInfo)
         const spinner = document.querySelector(".spinner")
         spinner.classList.add("hidden")
     })
