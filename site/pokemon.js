@@ -1,8 +1,18 @@
 const pokemon = document.querySelector("#pokemon")
+const url = new URL(window.location)
+const queryString = new URLSearchParams(url.search)
+
+fetchAndParse(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
+    .then(pokemonInfo => {
+        pokemon.append(createDiv(pokemonInfo))
+        const div = document.querySelector(".pokemon-details")
+        div.append(createUl(pokemonInfo))
+        const spinner = document.querySelector(".spinner")
+        spinner.classList.add("hidden")
+    })
 
 function capitalize(name) {
-    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
-    return capitalizedName
+    return capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
 }
 
 function createDiv(pokemonInfo) {
@@ -36,17 +46,6 @@ function createAbilityLi(abilityInfo) {
     return li
 }
 
-const url = new URL(window.location)
-const queryString = new URLSearchParams(url.search)
-
-fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
-    .then(response => {
-        return response.json()
-    }).then(pokemonInfo => {
-        pokemon.append(createDiv(pokemonInfo))
-        const div = document.querySelector(".pokemon-details")
-        div.append(createUl(pokemonInfo))
-        const spinner = document.querySelector(".spinner")
-        spinner.classList.add("hidden")
-    })
-
+function fetchAndParse(url) {
+    return fetch(url).then(response => response.json())
+}
